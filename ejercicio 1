@@ -1,0 +1,42 @@
+class Nodo:
+    def __init__(self, valor):
+        self.valor = valor
+        self.izquierdo = None
+        self.derecho = None
+
+class ArbolBinario:
+    def __init__(self):
+        self.raiz = None
+
+    def insertar(self, valor):
+        if self.raiz is None:
+            self.raiz = Nodo(valor)
+        else:
+            self._insertar_recursivo(self.raiz, valor)
+
+    def _insertar_recursivo(self, nodo, valor):
+        if valor < nodo.valor:
+            if nodo.izquierdo is None:
+                nodo.izquierdo = Nodo(valor)
+            else:
+                self._insertar_recursivo(nodo.izquierdo, valor)
+        else:
+            if nodo.derecho is None:
+                nodo.derecho = Nodo(valor)
+            else:
+                self._insertar_recursivo(nodo.derecho, valor)
+
+    def preorden(self, nodo):
+        if nodo is not None:
+            print(nodo.valor, end=' ')
+            self.preorden(nodo.izquierdo)
+            self.preorden(nodo.derecho)
+
+# Uso
+arbol = ArbolBinario()
+valores = [10, 5, 15, 3, 7, 12, 18]
+for valor in valores:
+    arbol.insertar(valor)
+
+print("Recorrido en Preorden:")
+arbol.preorden(arbol.raiz)
