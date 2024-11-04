@@ -1,0 +1,8 @@
+def suma_inorden(nodo):
+    if nodo is None:
+        return 0
+    return suma_inorden(nodo.izquierdo) + nodo.valor + suma_inorden(nodo.derecho)
+
+# Uso
+suma_total = suma_inorden(arbol.raiz)
+print("\nSuma total de los valores en Inorden:", suma_total)
