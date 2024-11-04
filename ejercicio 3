@@ -1,0 +1,8 @@
+def maximo_postorden(nodo):
+    if nodo is None:
+        return float('-inf')
+    return max(nodo.valor, maximo_postorden(nodo.izquierdo), maximo_postorden(nodo.derecho))
+
+# Uso
+maximo_valor = maximo_postorden(arbol.raiz)
+print("Valor máximo encontrado en Postorden:", maximo_valor)
