@@ -1,8 +1,56 @@
+class Nodo:
+    def __init__(self, valor):
+        self.valor = valor
+        self.izquierdo = None
+        self.derecho = None
+
+class ArbolBusquedaBinaria:
+    def __init__(self):
+        self.raiz = None
+
+    def insertar(self, valor):
+        if self.raiz is None:
+            self.raiz = Nodo(valor)
+        else:
+            self._insertar_recursivo(self.raiz, valor)
+
+    def _insertar_recursivo(self, nodo, valor):
+        if valor < nodo.valor:
+            if nodo.izquierdo is None:
+                nodo.izquierdo = Nodo(valor)
+            else:
+                self._insertar_recursivo(nodo.izquierdo, valor)
+        else:
+            if nodo.derecho is None:
+                nodo.derecho = Nodo(valor)
+            else:
+                self._insertar_recursivo(nodo.derecho, valor)
+
+    def buscar(self, valor):
+        return self._buscar_recursivo(self.raiz, valor)
+
+    def _buscar_recursivo(self, nodo, valor):
+        if nodo is None:
+            return False
+        if nodo.valor == valor:
+            return True
+        elif valor < nodo.valor:
+            return self._buscar_recursivo(nodo.izquierdo, valor)
+        else:
+            return self._buscar_recursivo(nodo.derecho, valor)
+
 def maximo_postorden(nodo):
     if nodo is None:
-        return float('-inf')
+        return float('-inf')  # Si el nodo es None, devolvemos el valor mínimo posible
+    # Llamadas recursivas a los subárboles izquierdo y derecho, y se evalúa el valor máximo.
     return max(nodo.valor, maximo_postorden(nodo.izquierdo), maximo_postorden(nodo.derecho))
 
 # Uso
-maximo_valor = maximo_postorden(arbol.raiz)
+arbol_abb = ArbolBusquedaBinaria()
+numeros = [10, 5, 15, 3, 7, 12, 18]
+for numero in numeros:
+    arbol_abb.insertar(numero)
+
+# Buscar el valor máximo en el árbol en un recorrido de postorden
+maximo_valor = maximo_postorden(arbol_abb.raiz)
 print("Valor máximo encontrado en Postorden:", maximo_valor)
