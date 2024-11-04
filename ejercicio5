@@ -1,0 +1,33 @@
+class NodoExpresion:
+    def __init__(self, valor):
+        self.valor = valor
+        self.izquierdo = None
+        self.derecho = None
+
+def evaluar_arbol(nodo):
+    if nodo is None:
+        return 0
+    if isinstance(nodo.valor, int):
+        return nodo.valor
+    izquierda = evaluar_arbol(nodo.izquierdo)
+    derecha = evaluar_arbol(nodo.derecho)
+    if nodo.valor == '+':
+        return izquierda + derecha
+    elif nodo.valor == '-':
+        return izquierda - derecha
+    elif nodo.valor == '*':
+        return izquierda * derecha
+    elif nodo.valor == '/':
+        return izquierda / derecha
+
+# Construcción del árbol para la expresión: ((3 + 2) * (5 - 1))
+raiz_expr = NodoExpresion('*')
+raiz_expr.izquierdo = NodoExpresion('+')
+raiz_expr.izquierdo.izquierdo = NodoExpresion(3)
+raiz_expr.izquierdo.derecho = NodoExpresion(2)
+raiz_expr.derecho = NodoExpresion('-')
+raiz_expr.derecho.izquierdo = NodoExpresion(5)
+raiz_expr.derecho.derecho = NodoExpresion(1)
+
+resultado = evaluar_arbol(raiz_expr)
+print("\nResultado de la evaluación de la expresión:", resultado)
